@@ -1,0 +1,249 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Head -->
+    <div th:insert="common :: htmlHead"></div>
+
+    <body class="unique-color-dark">
+        <!-- Nav Menu -->
+        <div th:replace="common :: navBar"></div>
+        <!-- Main Body of Page -->
+        <div class='container-fluid'>
+
+            <div class='flex-row'>
+                <div class='col'>
+                    <h1 class='text-center deep-orange-text display-3 bounceIn font-weight-bold' th:text="${stock.name}"></h1>   
+                </div>
+            </div>
+
+            <div th:if="${!errors.isEmpty()}" class="d-flex col justify-content-center alert alert-danger alert-dismissible fade show text-center error-message" style="" role="alert" th:each="error : ${errors}"  >
+                <p   th:text="${error.message}"></p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+
+            <div th:if="${!errors.isEmpty()}" class="d-flex col justify-content-center alert alert-danger alert-dismissible fade show text-center error-message" style="" role="alert" >
+                <p >Add Order Failed</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+
+            <!-- stock card -->
+            <div class='row d-flex justify-content-around py-4'>
+                <div class="d-flex flex-row col-xl-4 col-lg-6 col-md-6 col-sm-12 p-5" >
+                    <div class="card hoverable w-100 p-5">
+                        <div class="card-body text-center default-color  p-5">
+                            <div>
+                                <h2 class="font-weight-bold deep-orange-lighter-hover mb-3" th:text="${stock.id}"  >id</h2>
+                            </div>
+                            <h2 class="font-weight-bold deep-orange-lighter-hover mb-3" th:text="${stock.symbol}"  >symbol</h2>
+                            <p class="brown-lighter-hover font-italic" th:text="${stock.name}" > name</p>
+                        </div>
+                    </div>
+                </div>  
+                <div class="d-flex flex-row col-xl-4 col-lg-6 col-md-6 col-sm-12 justify-content-center p-5" >
+
+                    <form class="text-center border border-light p-5"  action="addOrder" th:object="${stockOrder}" method="POST">
+                        <p class="h4 text-default">Place Order</p>                        
+                        <select name='side' class="browser-default custom-select mb-1" required="required" >
+                            <option value="0" selected disabled>SELECT SIDE</option>
+                            <option value="1">BUY</option>
+                            <option value="2">SELL</option>
+                        </select> 
+                        <input name='price' type="number" id="defaultContactFormEmail" class="form-control mb-1" placeholder="Price" min="1" max="1000000"  autofocus="autofocus">
+                        <input min="1"  name="quantity"  type="number" class="form-control mb-2" placeholder="Quantity" />
+                        <input type="hidden" name="stockId" th:value="${stock.id}"/>
+                        <button   class="btn text-default border border-light btn-block unique-color-dark" type="submit">Send</button>
+                    </form>
+                </div> 
+
+            </div>
+
+            <div class="row d-flex justify-content-around">
+
+                <div class="d-flex flex-column col-xl-6 col-lg-4 col-md-3 col-sm-12 p-4 d-flex " >
+
+                    <div class="d-flex justify-content-center">
+                        <p class="h4 text-default">BIDS</p>
+                        <a class="far fa-eye white-text pl-3  fa-1x" th:href="@{/orders(stockId=${stock.id} , side=${'BUY'})}"  ></a>
+                    </div>
+
+
+
+                    <div class="d-flex justify-content-center">
+                        <table class="table table-striped text-center " >
+                            <thead class="default-color ">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Bid</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col">Cancel</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-default white ">
+                                <tr   th:each="order : ${buyOrders}">
+                                    <td th:text="${order.id}"  >id</td>
+                                    <td th:text="${order.datetime}">time</td>
+                                    <td th:text="${order.quantity}">size</td>
+                                    <td th:text="${'$' + order.price}">price</td>
+                                    <td>
+                                        <a class="fas fa-info-circle" th:href="@{/orderDetail(orderId=${order.id})}" ></a>
+                                    </td>
+                                    <td>
+                                        <a class="fas fa-window-close text-danger" data-toggle="modal" data-target="#deleteconfirm" ></a>
+                                        <!--Modal: modalConfirmDelete-->
+                                        <div class="modal fade" id="deleteconfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+
+                                            <div class="modal-dialog modal-sm  " role="document">
+                                                <!--Content-->
+                                                <div class="modal-content text-center">
+                                                    <!--Header-->
+                                                    <div class="modal-header d-flex justify-content-center">
+                                                        <p class="heading font-weight-bold"> Confirm Cancel Order ? </p>
+                                                    </div>
+                                                    <!--Body-->
+                                                    <div class="modal-body">
+                                                        <i class="fas fa-times fa-4x animated rotateIn text-danger"></i>
+                                                    </div>
+
+                                                    <!--Footer-->
+                                                    <div class="modal-footer justify-content-around">
+                                                        <a href="" class=" text-danger btn  btn-outline-default  " th:href="@{/cancelOrder(orderId=${order.id} , stockId=${stock.id})}" >Yes</a>
+                                                        <a type="button" class="btn  btn-default waves-effect" data-dismiss="modal">No</a>
+                                                    </div>
+                                                </div>
+                                                <!--/.Content-->
+                                            </div>
+                                        </div>
+                                        <!--Modal: modalConfirmDelete-->
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex flex-column col-xl-6 col-lg-4 col-md-3 col-sm-12 p-4 d-flex " >
+
+                    <div class="d-flex row justify-content-center">
+                        <p class="h4 text-default">OFFERS</p>
+                        <a class="far fa-eye white-text pl-3  fa-1x" th:href="@{/orders(stockId=${stock.id} , side=${'SELL'})}"></a>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <table class="table table-striped text-center " >
+                            <thead class="default-color ">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Bid</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col">Cancel</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-default white ">
+                                <tr   th:each="order : ${sellOrders}">
+                                    <td th:text="${order.id}"  >id</td>
+                                    <td th:text="${order.datetime}">time</td>
+                                    <td th:text="${order.quantity}">size</td>
+                                    <td th:text="${'$' + order.price}">price</td>
+
+                                    <td>
+                                        <a class="fas fa-info-circle" th:href="@{/orderDetail(orderId=${order.id})}" ></a>
+                                    </td>
+                                    <td>
+
+                                        <a class="fas fa-window-close text-danger" data-toggle="modal" data-target="#deleteconfirm" ></a>
+                                        <!--Modal: modalConfirmDelete-->
+                                        <div class="modal fade" id="deleteconfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+
+                                            <div class="modal-dialog modal-sm  " role="document">
+                                                <!--Content-->
+                                                <div class="modal-content text-center">
+                                                    <!--Header-->
+                                                    <div class="modal-header d-flex justify-content-center">
+                                                        <p class="heading font-weight-bold"> Confirm Cancel Sell Order ? </p>
+                                                    </div>
+                                                    <!--Body-->
+                                                    <div class="modal-body">
+                                                        <i class="fas fa-times fa-4x animated rotateIn text-danger"></i>
+                                                    </div>
+
+                                                    <!--Footer-->
+                                                    <div class="modal-footer justify-content-around">
+                                                        <a href="" class=" text-danger btn  btn-outline-default  " th:href="@{/cancelOrder(orderId=${order.id} , stockId=${stock.id})}" >Yes</a>
+                                                        <a type="button" class="btn  btn-default waves-effect" data-dismiss="modal">No</a>
+                                                    </div>
+                                                </div>
+                                                <!--/.Content-->
+                                            </div>
+                                        </div>
+                                        <!--Modal: modalConfirmDelete-->
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class=" d-flex flex-column col-xl-12  col-lg-12 col-md-12 col-sm-12 text-nowrap py-5 ">
+                <div class=" d-flex justify-content-center" >
+                    <p class="h4 text-default display-4 font-weight-bold">TRADES</p>
+                </div>
+                <div class="d-flex justify-content-center table-responsive text-nowrap">
+                    <div class="d-flex justify-content-center table-responsive text-nowrap">
+                        <table id="dtBasicExample" class="table table-bordered  text-default text-center " width="100%">
+                            <thead class="default-color white-text">
+                                <tr>
+                                    <th class="th-sm">ID
+                                    </th>
+                                    <th class="th-sm">TIME
+                                    </th>
+                                    <th class="th-sm">SYMBOL
+                                    </th>
+                                    <th class="th-sm">NAME
+                                    </th>
+                                    <th class="th-sm">SIZE
+                                    </th>
+                                    <th class="th-sm">PRICE
+                                    </th>
+                                    <th class="th-sm">DETAILS
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="searchable ">
+                                <tr th:each="trade : ${trades}">
+                                    <td th:text="${trade.id}" >id</td>
+                                    <td th:text="${trade.datetime}">time</td>
+                                    <td th:text="${trade.stock.symbol}">symbol</td>
+                                    <td th:text="${trade.stock.name}">name</td>
+                                    <td th:text="${trade.quantity}">size</td>
+                                    <td th:text="${trade.price}">price</td>
+                                    <td>
+                                        <a class="fas fa-info-circle" th:href="@{/tradeDetail(tradeId=${trade.id})}"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End main body -->
+        <!-- scripts -->
+        <div th:insert="common :: scripts"></div>
+        <script  src="index.js"></script>
+        <div th:insert="common :: footer"></div>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Head -->
+    <div th:insert="common :: htmlHead"></div>
+
+    <body class="unique-color-dark h-100">
+        <!-- Nav Menu -->
+        <div th:replace="common :: navBar"></div>
+        <!-- Main Body of Page -->
+        <div class="container-fluid col-xl-12 text-center unique-color-dark lighten-5 p-3">
+            <div class='container unique-color-dark '>
+                <!-- Title -->
+                <p class="text-default font-weight-bold display-3 py-2">Stock market at your fingertips</p>
+
+                <div class="zoom  overlay">
+                    <img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" class=" rounded img-fluid p-3 " alt="">
+                </div>
+                <!-- Grid row -->
+                <!-- Grid column -->
+                <!-- Grid row -->
+                <div class="row d-flex justify-content-center pt-2" >
+                    <!--Elegant-->
+                    <a type="button" class="btn text-default border border-light" th:href="@{/stocks}">View STOCKS</a>
+                    <!--Unique-->
+                    <a type="button" class="btn text-default border border-light" th:href="@{/trades}">View TRADES</a>
+               
+                 
+                </div>
+
+            </div>
+        </div>
+
+        <div class=" col-12 text-center blue-grey lighten-5 ">
+
+            <div class="row justify-content-around py-5 default-color">
+                <div class="col-xl-4 ">
+                    <i class="fas fa-server fa-3x text-white home-icon"></i>
+                    <p class="text-white ">99.999% Uptime Guarantee</p>
+                </div>
+                <div class="col-xl-4">
+                    <i class="fas fa-users fa-3x text-white home-icon"></i>
+                    <p class="text-white">Great Customer Service</p>
+                </div>
+                <div class="col-xl-4">
+                    <i class="fas fa-smile fa-3x text-white home-icon"></i>
+                    <p class="text-white">Guaranteed Satisfaction</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+        </div>
+
+    </div>
+    <!-- Jumbotron -->
+    <!-- End main body -->
+    <!-- scripts -->
+    <div th:insert="common :: scripts"></div>
+    <div th:insert="common :: footer"></div>
+</body>
+</html>

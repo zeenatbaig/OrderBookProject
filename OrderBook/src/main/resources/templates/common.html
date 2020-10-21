@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <!-- html header-->
+    <head  th:fragment="htmlHead">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+        <!-- datatables css -->
+        <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+        <!-- static css -->
+        <link href="index.css" rel="stylesheet">
+
+        <title>Order Book Central</title>
+
+    </head>
+    <!-- navBar-->
+    <nav th:fragment="navBar">
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark unique-color-dark">
+            <!-- Navbar brand -->
+            <a class="fas fa-chart-line text-white fa-2x deep-orange-text" th:href="@{/}" ></a>
+            <a class="navbar-brand p-3 deep-orange-text" th:href="@{/}" >Order Book Central</a>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item active pr-3 ">
+                        <a class="nav-link deep-orange-text" th:href="@{/stocks}">STOCKS
+
+                        </a>
+                    </li>
+                    <li class="nav-item active pr-3">
+                        <a class="nav-link deep-orange-text" th:href="@{/trades}">TRADES</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Collapsible content -->
+        </nav>
+    </nav>
+
+
+    <!-- scripts-->
+    <div th:fragment="scripts">
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script> 
+        <!-- datatables js -->
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"  ></script>
+       
+    </div>
+
+    <footer class="font-small unique-color-dark fixed-bottom" th:fragment="footer">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center p-1">
+            <p class=' text-white'>&copy; 2020 orderbookcentral.com</p>
+        </div>
+        <!-- Copyright -->
+    </footer>
+</body>
+</html>

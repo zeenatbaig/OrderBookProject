@@ -1,0 +1,42 @@
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: white !important ;
+}
+
+
+#dtBasicExample_next {
+    color: white !important ;
+}
+
+#dtBasicExample_previous{
+    color: white !important ;
+}
+
+@media screen and (max-width: 299px) {
+    .home-icon {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (min-width: 300px) and (max-width: 799px) {
+    .home-icon {
+        font-size: 2em;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .home-icon {
+        font-size: 3em;
+    }
+}
+
+.error-message {
+    position: fixed;
+    z-index: 9999;
+}
+
+.stock-error-message {
+    position: fixed;
+    top: 18%;
+    z-index: 9999;
+}

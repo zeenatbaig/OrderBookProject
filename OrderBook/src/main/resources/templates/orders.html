@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Head -->
+    <div th:insert="common :: htmlHead"></div>
+
+    <body class="unique-color-dark">
+        <!-- Nav Menu -->
+        <div th:replace="common :: navBar"></div>
+        <!-- Main Body of Page -->
+        <div class='container-fluid'>
+            <!-- Header -->
+            <div class=' d-flex flex-row justify-content-center align-items-center'>
+                <h1 class='text-center deep-orange-text display-3 bounceIn font-weight-bold '>ORDERS</h1> 
+            </div>
+            <div class="d-flex flex-column col-xl-12 col-lg-4 col-md-3 col-sm-12 p-4 d-flex " >
+
+                <div class="d-flex justify-content-center">
+                    <table class="table table-striped text-center " >
+                        <thead class="default-color ">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Bid</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Side</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-default white ">
+                            <tr   th:each="order : ${orders}">
+                                <td th:text="${order.id}"  >id</td>
+                                <td th:text="${order.datetime}">time</td>
+                                <td th:text="${order.quantity}">size</td>
+                                <td th:text="${'$' + order.price}">price</td>
+                                <td th:text="${ order.status}">price</td>
+                                <td th:text="${ order.side}">price</td>
+                                <td>
+                                    <a class="fas fa-info-circle" th:href="@{/orderDetail(orderId=${order.id})}" ></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- End main body -->
+            <!-- scripts -->
+            <div th:insert="common :: scripts"></div>
+            <div th:insert="common :: footer"></div>
+    </body>
+</html>

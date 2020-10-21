@@ -1,0 +1,66 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Head -->
+    <div th:insert="common :: htmlHead"></div>
+
+    <body class="unique-color-dark">
+        <!-- Nav Menu -->
+        <div th:replace="common :: navBar"></div>
+        <!-- Main Body of Page -->
+        <div class='container-fluid'>
+            <div class='flex-row'>
+                <div class='col'>
+                    <h1 class='text-center deep-orange-text display-3 bounceIn font-weight-bold '>TRADES</h1>   
+                </div>
+            </div>
+        </div>
+       <div class=" d-flex flex-column col-xl-12 col-xl-6 col-lg-4 col-md-3 col-sm-12 text-nowrap ">
+                <div class="d-flex justify-content-center table-responsive text-nowrap">
+                    <table id="dtBasicExample" class="table table-bordered  text-default text-center " width="100%">
+                        <thead class="default-color white-text">
+                            <tr>
+                                <th class="th-sm">ID
+                                </th>
+                                <th class="th-sm">TIME
+                                </th>
+                                <th class="th-sm">SYMBOL
+                                </th>
+                                <th class="th-sm">NAME
+                                </th>
+                                <th class="th-sm">SIZE
+                                </th>
+                                <th class="th-sm">PRICE
+                                </th>
+                                <th class="th-sm">DETAILS
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="searchable ">
+                            <tr th:each="trade : ${trades}">
+                                <td th:text="${trade.id}" >id</td>
+                                <td th:text="${trade.datetime}">time</td>
+                                <td th:text="${trade.stock.symbol}">symbol</td>
+                                <td th:text="${trade.stock.name}">name</td>
+                                <td th:text="${trade.quantity}">suze</td>
+                                <td th:text="${trade.price}">price</td>
+                                <td>
+                                    <a class="fas fa-info-circle" th:href="@{/tradeDetail(tradeId=${trade.id})}"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+</div>    
+
+<!-- End main body -->
+<!-- scripts -->
+
+<div th:insert="common :: scripts"></div>
+<script  src="index.js"></script>
+<div th:insert="common :: footer"></div>
+</body>
+</html>
